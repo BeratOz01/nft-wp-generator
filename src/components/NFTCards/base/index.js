@@ -6,16 +6,23 @@ import styles from "./style.module.css";
 // React Bootstrap
 import { Row, Col, Card, Spinner } from "react-bootstrap";
 
-const NFTCards = ({ name, uris, tokenIDs, onClick }) => {
+// react-router-dom
+import { useHistory } from "react-router-dom";
+
+const NFTCards = ({ uris, tokenIDs, address, chain }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const history = useHistory();
 
   return (
     <Row xs={1} md={2} lg={4} className="g-4">
       {uris.map((uri, idx) => (
-        <Col>
+        <Col key={idx}>
           <Card
             className={styles.custom_card}
-            onClick={() => onClick(name, uri, tokenIDs[idx])}
+            // onClick={() => onClick(name, uri, tokenIDs[idx])}
+            onClick={() =>
+              history.push(`/${address[0]}/${tokenIDs[idx]}?chain=${chain}`)
+            }
           >
             {!isLoaded && (
               <Spinner

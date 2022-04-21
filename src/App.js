@@ -4,12 +4,13 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // Pages
-import { Home, Dashboard } from "./pages";
+import { Home, Dashboard, Edit } from "./pages";
 
 function App() {
   return (
     <Router>
       <Switch>
+        <Route component={Edit} path="/:token/:tokenID" />
         <Route component={Dashboard} path="/:address" />
         <Route component={Home} path="/" />
       </Switch>

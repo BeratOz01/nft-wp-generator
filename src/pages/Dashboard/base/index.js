@@ -14,7 +14,7 @@ import { SpinnerInfinity } from "spinners-react";
 import axios from "axios";
 
 // Components
-import { NFTCards, NFTModal } from "components";
+import { NFTCards } from "components";
 
 // A custom hook that builds on useLocation to parse
 // the query string for you.
@@ -48,14 +48,13 @@ const Dashboard = () => {
   React.useEffect(() => {
     async function fetchData(chain) {
       await axios
-        .post(process.env.REACT_APP_SERVER_URL, {
+        .post(process.env.REACT_APP_SERVER_URL + "/info", {
           address: address,
           selectedChain: chain,
         })
         .then((e) => setNfts(e.data.data))
         .catch((e) => setError(e.toString()))
         .finally(() => setIsLoading(false));
-      console.log("fetchData");
     }
 
     if (address !== undefined && query !== undefined) {
@@ -66,7 +65,6 @@ const Dashboard = () => {
 
   return (
     <Container className="d-flex flex-column mb-5">
-      <NFTModal show={show} nft={nft} onHide={onHide} />
       <div className="d-flex flex-row justify-content-center mt-5">
         <AiOutlineArrowLeft
           className="my-auto fw-bold me-3"
@@ -117,10 +115,10 @@ const Dashboard = () => {
                     <div key={index} className="mt-2">
                       <p className="poppins fs-2 mt-5">{name}</p>
                       <NFTCards
-                        name={name}
+                        address={nfts.addresses[index]}
                         uris={nfts.images[index]}
                         tokenIDs={nfts.tokenIDs[index]}
-                        onClick={onClickNFT}
+                        chain={query.get("selectedChain")}
                       />
                     </div>
                   ))}

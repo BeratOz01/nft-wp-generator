@@ -1,0 +1,40 @@
+.custom_modal {
+    border-radius: 15px !important;
+    width: 100% !important;
+}
+
+.custom_input {
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.custom_image {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom_div {
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    width: 250px;
+    height: 120px;
+    display: flex;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 20px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.custom_dropzone{
+    border: 2px dashed gray;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 100px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}

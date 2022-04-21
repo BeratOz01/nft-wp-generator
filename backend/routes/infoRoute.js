@@ -27,6 +27,14 @@ const formatMoralisUrl = (address, selectedChain) => {
   return url;
 };
 
+// Helper function NFT address individual information
+const formatNFTMoralisURL = (address, selectedChain) => {
+  const chain = formatChain(selectedChain);
+  const url = `https://deep-index.moralis.io/api/v2/nft/${address}?chain=${chain}&format=decimal`;
+
+  return url;
+};
+
 /*
     POST '/info'
         Returns formatted JSON with the following information:
@@ -47,10 +55,8 @@ router.post("/", async (req, res) => {
       },
     });
 
-    console.log("INFO");
     // Simple for loop for formatting contracts addresses and tokenIDs to same index in array
-
-    const data = { images: [], tokenIDs: [], names: [] };
+    const data = { images: [], tokenIDs: [], names: [], addresses: [] };
     for (const nft of response.data.result) {
       if (data.names.includes(nft.name)) {
         data.tokenIDs[data.names.indexOf(nft.name)].push(nft.token_id);
@@ -61,6 +67,7 @@ router.post("/", async (req, res) => {
             parseInt(selectedChain)
           )
         );
+        data.addresses[data.names.indexOf(nft.name)].push(nft.token_address);
       } else {
         data.names.push(nft.name);
         data.images.push([
@@ -70,6 +77,7 @@ router.post("/", async (req, res) => {
             parseInt(selectedChain)
           ),
         ]);
+        data.addresses.push([nft.token_address]);
         data.tokenIDs.push([nft.token_id]);
       }
     }
@@ -84,6 +92,31 @@ router.post("/", async (req, res) => {
     msg.message = e.message;
     msg.data = {};
     res.json(msg);
+  }
+});
+
+router.get("/:address/:tokenID/:chain", async (req, res) => {
+  try {
+    const msg = {};
+    const { address, tokenID, chain } = req.params;
+    const url = imageSelector(address, tokenID, parseInt(chain));
+
+    msg.uri = url;
+
+    const response = await axios.get(formatNFTMoralisURL(address, chain), {
+      headers: {
+        "x-api-key": process.env.MORALIS_API_KEY,
+      },
+    });
+
+    msg.name = response.data.result[0].name;
+    msg.tokenID = tokenID;
+    msg.status = "Success";
+    console.log(msg);
+    res.json(msg);
+  } catch (e) {
+    console.log(e);
+    res.send(e.message);
   }
 });
 
