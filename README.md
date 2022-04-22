@@ -55,7 +55,9 @@
 ## TODO
 - Add more size
 - Improve quality of exported wallpapers
+- Responsive UI :/
 
+[Go to generator](https://nft-wp-generator.vercel.app/)
 
 ## Installation
 
