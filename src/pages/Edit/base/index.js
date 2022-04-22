@@ -51,6 +51,16 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+const phoneDimension = (name) => {
+  return {
+    "iPhone 13": [1170, 2532],
+    "iPhone X": [1125, 2536],
+    "iPhone XR": [828, 1792],
+    "iPhone 8": [750, 1334],
+    "Samsung Galaxy S22": [1080, 2340],
+  }[name];
+};
+
 const Edit = () => {
   const { token, tokenID } = useParams();
   const query = useQuery();
@@ -86,10 +96,11 @@ const Edit = () => {
   });
 
   const onClickDownload = async () => {
+    let h = phoneDimension(phone);
     htmlToImage
       .toPng(rref.current, {
-        // canvasHeight: 2532,
-        // canvasWidth: 1170,
+        canvasHeight: h[1],
+        canvasWidth: h[0],
         pixelRatio: 1,
       })
       .then(async function (dataUrl) {
@@ -110,6 +121,7 @@ const Edit = () => {
     y: 0,
   });
   const imgRef = React.useRef(null);
+  const [phone, setPhone] = React.useState("iPhone 13");
 
   // Handle Drag Move
   const handleDragMove = (e) => {
@@ -160,7 +172,6 @@ const Edit = () => {
         )
         .then((e) => {
           setNFT(e.data);
-          console.log(e.data);
         })
         .catch((e) => console.log(e))
         .finally(() => setLoading(false));
@@ -282,10 +293,7 @@ const Edit = () => {
                 </Dropdown>
               </Modal>
 
-              <p
-                className="text-center poppins fs-4 my-auto"
-                onClick={() => console.log(file[0])}
-              >
+              <p className="text-center poppins fs-4 my-auto">
                 {nft.name}
                 <br />#{nft.tokenID}
               </p>
@@ -344,7 +352,7 @@ const Edit = () => {
                       variant="light"
                       className={`w-75 mx-auto poppins ${styles.custom_input}`}
                     >
-                      {size ? getKeyByValue(phoneToSize, size) : "Select Size"}
+                      {phone}
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu style={{ width: "max-content" }}>
@@ -352,7 +360,10 @@ const Edit = () => {
                         <Dropdown.Item
                           key={phone}
                           className="poppins text-center"
-                          onClick={() => setSize(phoneToSize[phone])}
+                          onClick={() => {
+                            setSize(phoneToSize[phone]);
+                            setPhone(phone);
+                          }}
                         >
                           {phone}
                         </Dropdown.Item>

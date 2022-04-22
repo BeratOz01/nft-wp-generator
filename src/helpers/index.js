@@ -1,6 +1,10 @@
 // Constant for phone to size
 export const phoneToSize = {
   "iPhone 13": 757,
+  "iPhone X": 757,
+  "iPhone XR": 757,
+  "iPhone 8": 757,
+  "Samsung Galaxy S22": 757,
 };
 
 // Helper function to get phone name from size
