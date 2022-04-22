@@ -31,7 +31,6 @@ const formatMoralisUrl = (address, selectedChain) => {
 const formatNFTMoralisURL = (address, selectedChain) => {
   const chain = formatChain(selectedChain);
   const url = `https://deep-index.moralis.io/api/v2/nft/${address}?chain=${chain}&format=decimal`;
-
   return url;
 };
 
@@ -54,6 +53,8 @@ router.post("/", async (req, res) => {
         "x-api-key": process.env.MORALIS_API_KEY,
       },
     });
+
+    console.log(response.data.result.length);
 
     // Simple for loop for formatting contracts addresses and tokenIDs to same index in array
     const data = { images: [], tokenIDs: [], names: [], addresses: [] };

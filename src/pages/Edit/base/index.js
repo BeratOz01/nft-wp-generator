@@ -20,6 +20,10 @@ import {
   Modal,
 } from "react-bootstrap";
 
+// Download the image
+import * as htmlToImage from "html-to-image";
+import * as download from "downloadjs";
+
 // Icons
 import { FiSettings } from "react-icons/fi";
 import {
@@ -64,6 +68,7 @@ const Edit = () => {
   // Tooltip target ref
   const [showToolTip, setShowToolTip] = React.useState(false);
   const target = React.useRef(null);
+  const rref = React.useRef(null);
 
   // React-dropzone config
   const [file, setFile] = React.useState([]);
@@ -79,6 +84,18 @@ const Edit = () => {
       );
     },
   });
+
+  const onClickDownload = async () => {
+    htmlToImage
+      .toPng(rref.current, {
+        // canvasHeight: 2532,
+        // canvasWidth: 1170,
+        pixelRatio: 1,
+      })
+      .then(async function (dataUrl) {
+        download(dataUrl, "greatest-bg-ever.png", "image/png");
+      });
+  };
 
   // Properties state for image
   const [backgroundColor, setBackgroundColor] = React.useState("black");
@@ -128,11 +145,6 @@ const Edit = () => {
     const newWidth = (newHeight * width) / height;
     setImgDimensions({ width: newWidth, height: newHeight });
   };
-
-  React.useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks
-    file.forEach((file) => URL.revokeObjectURL(file.preview));
-  }, [file]);
 
   React.useEffect(() => {
     async function fetchData() {
@@ -186,7 +198,6 @@ const Edit = () => {
                     variant="light"
                     className="poppins shadow-none mb-0"
                   >
-                    {/* Dropdown Button */}
                     {capitalizeFirstLetter(backgroundSize)}
                   </Dropdown.Toggle>
 
@@ -271,48 +282,57 @@ const Edit = () => {
                 </Dropdown>
               </Modal>
 
-              <p className="text-center poppins fs-4 my-auto">
+              <p
+                className="text-center poppins fs-4 my-auto"
+                onClick={() => console.log(file[0])}
+              >
                 {nft.name}
                 <br />#{nft.tokenID}
               </p>
               <Row>
                 <Col className="d-flex">
-                  <div
-                    style={
-                      size && {
-                        width: `350px`,
-                        height: `${size}px`,
-                        alignItems: position === null ? "" : position,
-                        backgroundImage:
-                          file.length !== 0 && `url(${file[0].preview})`,
-                        backgroundColor: file.length === 0 && backgroundColor,
-                        backgroundSize: file.length !== 0 && backgroundSize,
-                        backgroundPosition:
-                          file.lenght !== 0 && backgroundPosition,
-                        backgroundRepeat: file.length !== 0 && backgroundRepeat,
-                        border: "2px solid red",
+                  <div>
+                    <div
+                      ref={rref}
+                      style={
+                        size && {
+                          width: `350px`,
+                          height: `${size}px`,
+                          alignItems: position === null ? "" : position,
+                          backgroundImage:
+                            file.length !== 0 && `url('${file[0].preview}')`,
+                          backgroundColor: file.length === 0 && backgroundColor,
+                          backgroundSize: file.length !== 0 && backgroundSize,
+                          backgroundPosition:
+                            file.length !== 0 && backgroundPosition,
+                          backgroundRepeat:
+                            file.length !== 0 && backgroundRepeat,
+                        }
                       }
-                    }
-                    className={`mx-auto ${styles.custom_image} d-flex`}
-                  >
-                    <DragMove onDragMove={handleDragMove}>
-                      <img
-                        src={nft.uri}
-                        alt="nft"
-                        style={{
-                          transform: `translateX(${translate.x}px) translateY(${translate.y}px)`,
-                          width: imageDimension.width,
-                          height: imageDimension.height,
-                        }}
-                        ref={imgRef}
-                        onLoad={() => {
-                          setImgDimensions({
-                            width: imgRef.current.naturalWidth,
-                            height: imgRef.current.naturalHeight,
-                          });
-                        }}
-                      />
-                    </DragMove>
+                      className={`mx-auto ${styles.custom_image}`}
+                    >
+                      <DragMove
+                        onDragMove={handleDragMove}
+                        style={{ objectFit: "scale-down" }}
+                      >
+                        <img
+                          src={nft.uri}
+                          alt="nft"
+                          style={{
+                            transform: `translateX(${translate.x}px) translateY(${translate.y}px)`,
+                            width: imageDimension.width,
+                            aspectRatio: 1,
+                          }}
+                          ref={imgRef}
+                          onLoad={() => {
+                            setImgDimensions({
+                              width: imgRef.current.naturalWidth,
+                              height: imgRef.current.naturalHeight,
+                            });
+                          }}
+                        />
+                      </DragMove>
+                    </div>
                   </div>
                 </Col>
                 <Col>
@@ -484,6 +504,15 @@ const Edit = () => {
                       />
                     </div>
                   )}
+                  <div className="d-flex mt-3">
+                    <Button
+                      onClick={onClickDownload}
+                      variant="success"
+                      className="poppins mx-auto"
+                    >
+                      Download
+                    </Button>
+                  </div>
                 </Col>
               </Row>
             </>

@@ -8,7 +8,7 @@ export default function DragMove(props) {
     onDragMove,
     children,
     style,
-    className
+    className,
   } = props;
 
   const [isDragging, setIsDragging] = useState(false);
@@ -47,5 +47,5 @@ export default function DragMove(props) {
 DragMove.defaultProps = {
   onPointerDown: () => {},
   onPointerUp: () => {},
-  onPointerMove: () => {}
+  onPointerMove: () => {},
 };
