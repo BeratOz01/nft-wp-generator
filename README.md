@@ -21,6 +21,8 @@
   - if user upload image can set some settings about background wallpaper
   - And export
 
+[Go to generator](https://nft-wp-generator.vercel.app/)
+
 ## Screenshots
 
 ######  Home Page
@@ -55,6 +57,7 @@
 ## TODO
 - Add more size
 - Improve quality of exported wallpapers
+- Responsive UI :/
 
 
 ## Installation
