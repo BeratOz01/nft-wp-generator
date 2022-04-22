@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Wallpaper Generator with your NFTs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Tech
 
-## Available Scripts
+- React.js
+- Node.js
+- Bootstrap
+- Moralis API [docs](https://docs.moralis.io/moralis-dapp/web3-sdk)
 
-In the project directory, you can run:
+## Information
 
-### `npm start`
+- User can create wallpaper for his/her wallpaper from NFTs. All he/she has to do is paste the address into the home page.
+- Backend API will fetch all NFTs in the selected chain. These chains for now in Ethereum, Avalanche, Polygon, Binance Smart Chain.
+- User will choose which NFT h/she wants to make background, and user will be redirected to the edit screen.
+- In Edit screen, user can choose;
+  - size of wallpaper
+  - placement of NFT
+  - also can drag and drop NFT
+  - background color of wallpaper
+  - also can upload an image for wallpaper background
+  - if user upload image can set some settings about background wallpaper
+  - And export
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Screenshots
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+######  Home Page
 
-### `npm test`
+![Screenshot-1](https://user-images.githubusercontent.com/77115599/164712264-b37fff60-617b-4aa1-8dd9-f1049cb29b08.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+###### NFT List Page
 
-### `npm run build`
+![Screenshot-2](https://user-images.githubusercontent.com/77115599/164712261-717122df-4a4d-44dc-86c3-1493ba8936d1.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+###### NFT List Page (2)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Screenshot-3](https://user-images.githubusercontent.com/77115599/164712259-7348c725-3b73-4a6e-90ef-28f2708d18ef.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+###### NFT List Page (3)
 
-### `npm run eject`
+![Screenshot-5](https://user-images.githubusercontent.com/77115599/164712254-06755704-0a71-4e2c-909c-43bbbb1332a2.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+###### NFT List Page (4)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![ss6](https://user-images.githubusercontent.com/77115599/164712249-5b1d6462-5541-4feb-8192-c70f0338a5eb.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+###### Edit Default Page
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Screenshot-4](https://user-images.githubusercontent.com/77115599/164712244-e18440b7-1cfb-492d-b7fb-57ebb4bfbc5d.png)
 
-## Learn More
+##  Examples of Wallpapers
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![greatest-bg-ever](https://user-images.githubusercontent.com/77115599/164712236-0007af5b-5c3b-49f3-b64f-276d686e273c.png)
+![greatest-bg-ever (1)](https://user-images.githubusercontent.com/77115599/164712241-f912b232-9d93-48d7-8080-74e46b503613.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## TODO
+- Add more size
+- Improve quality of exported wallpapers
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Installation
 
-### Analyzing the Bundle Size
+> For front-end
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```sh
+cd nft-wp-generator
+npm install
+npm run start
+```
 
-### Making a Progressive Web App
+> For backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```sh
+cd nft-wp-generato/backend
+npm install
+npm run dev
+```
